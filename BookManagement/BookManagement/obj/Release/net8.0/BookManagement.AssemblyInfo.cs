@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-BookManagement-66a3835e-249d-408e-aaab-1a03ac64d64e")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookManagement")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e518fe92e1a3b526e3e1c83e687ebf633b5b5469")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookManagement")]

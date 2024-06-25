@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Book-Management-System\\BookManagement\\BookManagement\\BookManagement.csproj": {}
+    "C:\\Users\\t-tsukano.SGDOMAIN\\Documents\\nagaokaapp\\nagaoka-book-management-system\\BookManagement\\BookManagement\\BookManagement.csproj": {}
   },
   "projects": {
-    "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Book-Management-System\\BookManagement\\BookManagement\\BookManagement.csproj": {
+    "C:\\Users\\t-tsukano.SGDOMAIN\\Documents\\nagaokaapp\\nagaoka-book-management-system\\BookManagement\\BookManagement\\BookManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Book-Management-System\\BookManagement\\BookManagement\\BookManagement.csproj",
+        "projectUniqueName": "C:\\Users\\t-tsukano.SGDOMAIN\\Documents\\nagaokaapp\\nagaoka-book-management-system\\BookManagement\\BookManagement\\BookManagement.csproj",
         "projectName": "BookManagement",
-        "projectPath": "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Book-Management-System\\BookManagement\\BookManagement\\BookManagement.csproj",
-        "packagesPath": "C:\\Users\\y-shiga.SGDOMAIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Book-Management-System\\BookManagement\\BookManagement\\obj\\",
+        "projectPath": "C:\\Users\\t-tsukano.SGDOMAIN\\Documents\\nagaokaapp\\nagaoka-book-management-system\\BookManagement\\BookManagement\\BookManagement.csproj",
+        "packagesPath": "C:\\Users\\t-tsukano.SGDOMAIN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\t-tsukano.SGDOMAIN\\Documents\\nagaokaapp\\nagaoka-book-management-system\\BookManagement\\BookManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\y-shiga.SGDOMAIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\t-tsukano.SGDOMAIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

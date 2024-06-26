@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "noIKEe7JC63XbTPgxIqtTqOSpuUhE8x1c6LB7nfO3WV6XAdkEcEGnhrGsXh9Qla2ENH89lngNDK/ACNp6bkSHg==",
+  "dgSpecHash": "eazvffdaGsUaS4zB3kDzJoxeUyJYpuvw8/GxL4xxeDd3gtZOutVVW3IYC9WxaJst+Tn+XqSKsFVSkZVFyq1/OA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Book-Management-System\\BookManagement\\BookManagement\\BookManagement.csproj",
+  "projectFilePath": "C:\\Users\\y-shiga.SGDOMAIN\\Documents\\Nagaoka-Books-System\\nagaoka-book-management-system\\BookManagement\\BookManagement\\BookManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\y-shiga.SGDOMAIN\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\y-shiga.SGDOMAIN\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

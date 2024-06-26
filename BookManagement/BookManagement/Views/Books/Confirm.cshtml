@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BookManagement.Models.Book>
+@{
+    ViewData["Title"] = "貸出確認画面";
+}
+
+<h1>貸出確認画面</h1>
+
+<h3>こちらの書籍で貸出申請を行ってもよろしいですか？</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                書籍
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                〇〇〇
+                <!-- 引数bookのId -->
+                @* @Html.DisplayFor(modelItem => modelItem.Id) *@
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!--  -->

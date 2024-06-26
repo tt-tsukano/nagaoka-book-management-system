@@ -26,26 +26,26 @@ namespace BookManagement.Controllers
         }
 
         // GET: Books/Confirm/5
-        public async Task<IActionResult> Confirm()　//(int? id)
+        public async Task<IActionResult> Confirm(int? id)
         {
-            //// idがnullの場合はNotFoundを返す
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
+            // idがnullの場合はNotFoundを返す
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            //// idに該当するBookを取得
-            //var book = await _context.Books
-            //    .FirstOrDefaultAsync(m => m.Id == id);
+            // idに該当するBookを取得
+            var book = await _context.Books
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            //// Bookがnullの場合はNotFoundを返す
-            //if (book == null)
-            //{
-            //    return NotFound();
-            //}
+            // Bookがnullの場合はNotFoundを返す
+            if (book == null)
+            {
+                return NotFound();
+            }
 
             // BookをViewに渡して表示
-            return View();
+            return View(book);
         }
 
         // POST: Books/Confirm/5
@@ -70,6 +70,62 @@ namespace BookManagement.Controllers
 
             // BookのReturnDateにBorrowedDateから2週間後の日時を設定
             book.ReturnDate = book.BorrowedDate.AddDays(14);
+
+            // Bookを更新
+            _context.Update(book);
+
+            // 保存
+            await _context.SaveChangesAsync();
+
+            // Indexにリダイレクト（暫定処理）
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Books/Return/5
+        public async Task<IActionResult> Return(int? id)
+        {
+            // idがnullの場合はNotFoundを返す
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // idに該当するBookを取得
+            var book = await _context.Books
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            // Bookがnullの場合はNotFoundを返す
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            // BookをViewに渡して表示
+            return View(book);
+        }
+
+        // POST: Books/Return/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Return(int id)
+        {
+            // idに該当するBookを取得
+            var book = await _context.Books.FindAsync(id);
+
+            // Bookがnullの場合はNotFoundを返す
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            // BookのBorrowedStatusをfalseに変更
+            book.BorrowedStatus = false;
+
+            // BookのBorrowedDateをnullに設定したい
+            book.BorrowedDate = DateTime.MinValue;
+
+            // BookのReturnDateをnullに設定したい
+            book.ReturnDate = DateTime.MinValue;
 
             // Bookを更新
             _context.Update(book);

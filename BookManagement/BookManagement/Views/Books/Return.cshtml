@@ -1,11 +1,11 @@
 ﻿@model BookManagement.Models.Book
 @{
-    ViewData["Title"] = "貸出確認画面";
+        ViewData["Title"] = "返却確認画面";
 }
 
-<h1>貸出確認画面</h1>
+<h1>返却確認画面</h1>
 
-<h3>こちらの書籍で貸出申請を行ってもよろしいですか？</h3>
+<h3>こちらの書籍を返却しますか？</h3>
 
 <table class="table">
     <thead>
@@ -23,7 +23,6 @@
             <td>
                 <!-- 引数bookのIdを表示 -->
                 @Html.DisplayFor(model => model.Id)
-                
             </td>
         </tr>
         <tr>
@@ -47,9 +46,9 @@
     </tbody>
 </table>
 
-<!-- 貸出申請を行うボタンを配置 -->
-<form asp-action="Confirm" method="post">
+<!-- 返却を行うボタンを配置 -->
+<form asp-action="Return" method="post">
     <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-primary">申請する</button>
+    <button type="submit" class="btn btn-primary">返却する</button>
     <a asp-action="Index" class="btn btn-secondary">戻る</a>
 </form>

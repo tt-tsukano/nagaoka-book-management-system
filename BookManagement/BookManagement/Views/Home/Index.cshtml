@@ -49,13 +49,13 @@
                         <td>
                             @if (item.BorrowedStatus == true)
                             {
-                                <a asp-controller="Book" asp-action="Return" asp-route-id="@item.Id">
+                                <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
                                     <input type="submit" value="返却する" class="btn btn-success" />
                                 </a>
                             }
                             else
                             {
-                                <a asp-controller="Book" asp-action="Confirm" asp-route-id="@item.Id">
+                                <a asp-controller="Books" asp-action="Confirm" asp-route-id="@item.Id">
                                     <input type="submit" value="貸出申請" class="btn btn-primary" />
                                 </a>
                             }

@@ -69,7 +69,7 @@ namespace BookManagement.Controllers
             book.BorrowedDate = DateTime.Now;
 
             // BookのReturnDateにBorrowedDateから2週間後の日時を設定
-            book.ReturnDate = book.BorrowedDate.AddDays(14);
+            book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (DateTime?)null;
 
             // Bookを更新
             _context.Update(book);
@@ -78,7 +78,7 @@ namespace BookManagement.Controllers
             await _context.SaveChangesAsync();
 
             // Indexにリダイレクト（暫定処理）
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Books/Return/5
@@ -122,10 +122,10 @@ namespace BookManagement.Controllers
             book.BorrowedStatus = false;
 
             // BookのBorrowedDateをnullに設定したい
-            book.BorrowedDate = DateTime.MinValue;
+            book.BorrowedDate = null;
 
             // BookのReturnDateをnullに設定したい
-            book.ReturnDate = DateTime.MinValue;
+            book.ReturnDate = null;
 
             // Bookを更新
             _context.Update(book);
@@ -134,7 +134,7 @@ namespace BookManagement.Controllers
             await _context.SaveChangesAsync();
 
             // Indexにリダイレクト（暫定処理）
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Books/Details/5

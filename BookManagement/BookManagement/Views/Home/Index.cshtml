@@ -1,52 +1,73 @@
-﻿@{
+﻿@model BookManagement.ViewModels.TitleSearchViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1>書籍一覧</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>タイトル</th>
-                <th>出版年</th>
-                <th>返却予定日</th>
-                <th>現在の貸出状況</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<h2>書籍検索</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Title">タイトル:</label>
+        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" />
+    </div>   
+    <p></p>
+    <button type="submit" class="btn btn-primary">検索</button>
+</form>
+
+@if (Model.Results != null && Model.Results.Any())
+{
+    <div class="text-center">
+        <h1>書籍一覧</h1>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Title</td>
-                    <td>@item.PublishedYear</td>
-                    <td>
-                        @if(@item.ReturnDate == null)
-                        {
-                            <h6>-</h6>
-                        }
-                        else
-                        {
-                            @item.ReturnDate
-                        }
-                    </td>
-                    <td>
-                        @if (item.BorrowedStatus == true)
-                        {
-                            <a asp-controller="Book" asp-action="Return" asp-route-id="@item.Id">
-                                <input type="submit" value="返却" class="btn btn-success" />
-                            </a>
-                        }
-                        else
-                        {
-                            <a asp-controller="Book" asp-action="Confirm" asp-route-id="@item.Id">
-                                <input type="submit" value="貸出申請" class="btn btn-primary" />
-                            </a>
-                        }
-                    </td>
+                    <th>ID</th>
+                    <th>タイトル</th>
+                    <th>出版年</th>
+                    <th>返却予定日</th>
+                    <th>現在の貸出状況</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Results)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.PublishedYear</td>
+                        <td>
+                            @if (@item.ReturnDate == null)
+                            {
+                                <h6>-</h6>
+                            }
+                            else
+                            {
+                                @item.ReturnDate
+                            }
+                        </td>
+                        <td>
+                            @if (item.BorrowedStatus == true)
+                            {
+                                <a asp-controller="Book" asp-action="Return" asp-route-id="@item.Id">
+                                    <input type="submit" value="返却する" class="btn btn-success" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Book" asp-action="Confirm" asp-route-id="@item.Id">
+                                    <input type="submit" value="貸出申請" class="btn btn-primary" />
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <p>該当する書籍が見つかりませんでした。</p>
+}

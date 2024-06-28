@@ -200,7 +200,7 @@ namespace BookManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,BorrowedStatus,BorrowedDate,ReturnDate,PublishedYear,UserId")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,BorrowedStatus,BorrowedDate,ReturnDate,PublishedYear,UserId,Author")] Book book)
         {
             if (id != book.Id)
             {

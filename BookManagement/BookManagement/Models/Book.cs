@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Author { get; set; }
         public bool BorrowedStatus { get; set; } = false;
         public DateTime? BorrowedDate { get; set; } = DateTime.Now;
         public DateTime? ReturnDate { get; set; }

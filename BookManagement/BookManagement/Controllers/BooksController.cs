@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookManagement.Data;
 using BookManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookManagement.Controllers
 {
@@ -166,7 +167,7 @@ namespace BookManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,BorrowedStatus,BorrowedDate,ReturnDate,PublishedYear,UserId")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Title,BorrowedStatus,BorrowedDate,ReturnDate,PublishedYear,UserId,Author")] Book book)
         {
             if (ModelState.IsValid)
             {

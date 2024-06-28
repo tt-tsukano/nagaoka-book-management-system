@@ -7,6 +7,7 @@ using BookManagement.ViewModels;
 using System.Text;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookManagement.Controllers;
 

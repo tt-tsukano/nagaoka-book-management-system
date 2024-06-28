@@ -26,7 +26,7 @@
                 <tr>
                     <th>ID</th>
                     <th>タイトル</th>
-                    <th>著者名</th>
+                    <th>著者</th>
                     <th>出版年</th>
                     <th>返却予定日</th>
                     <th>現在の貸出状況</th>
@@ -38,7 +38,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Title</td>
-                        <th>@item.Author</th>
+                        <td>@item.Author</td>
                         <td>@item.PublishedYear</td>
                         <td>
                             @if (@item.ReturnDate == null)
@@ -52,9 +52,9 @@
                         </td>
                         <td>
                             @if (item.BorrowedStatus == true)
-                            {
+                            {                                
                                 <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
-                                    <input type="submit" value="返却する" class="btn btn-success" />
+                                     <input type="submit" value="返却する" class="btn btn-success" />
                                 </a>
                             }
                             else

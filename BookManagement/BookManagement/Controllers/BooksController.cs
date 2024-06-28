@@ -77,7 +77,7 @@ namespace BookManagement.Controllers
             // 保存
             await _context.SaveChangesAsync();
 
-            // Indexにリダイレクト（暫定処理）
+            // 書籍一覧画面にリダイレクト
             return RedirectToAction("Index","Home");
         }
 
@@ -133,7 +133,7 @@ namespace BookManagement.Controllers
             // 保存
             await _context.SaveChangesAsync();
 
-            // Indexにリダイレクト（暫定処理）
+            // 書籍一覧画面にリダイレクト
             return RedirectToAction("Index","Home");
         }
 
@@ -172,7 +172,8 @@ namespace BookManagement.Controllers
             {
                 _context.Add(book);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // 書籍一覧画面にリダイレクト
+                return RedirectToAction("Index", "Home");
             }
             return View(book);
         }

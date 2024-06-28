@@ -6,9 +6,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,21 +13,11 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BorrowedStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BorrowedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReturnDate)
+                @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PublishedYear)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -40,19 +27,10 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BorrowedStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BorrowedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReturnDate)
+                    @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishedYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

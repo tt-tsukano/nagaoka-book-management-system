@@ -26,6 +26,7 @@
                 <tr>
                     <th>ID</th>
                     <th>タイトル</th>
+                    <th>著者名</th>
                     <th>出版年</th>
                     <th>返却予定日</th>
                     <th>現在の貸出状況</th>
@@ -37,6 +38,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Title</td>
+                        <th>@item.Author</th>
                         <td>@item.PublishedYear</td>
                         <td>
                             @if (@item.ReturnDate == null)

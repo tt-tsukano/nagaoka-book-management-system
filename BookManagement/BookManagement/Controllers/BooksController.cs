@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookManagement.Data;
 using BookManagement.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookManagement.Controllers
 {
@@ -15,10 +16,12 @@ namespace BookManagement.Controllers
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Books
@@ -72,6 +75,9 @@ namespace BookManagement.Controllers
 
             // BookのReturnDateにBorrowedDateから2週間後の日時を設定
             book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (DateTime?)null;
+
+            // BookのUserIdにログインユーザーのIdを設定
+            book.UserId = int.Parse(_userManager.GetUserId(User));
 
             // Bookを更新
             _context.Update(book);
@@ -128,6 +134,9 @@ namespace BookManagement.Controllers
 
             // BookのReturnDateをnullに設定したい
             book.ReturnDate = null;
+
+            // BookのUserIdを0に設定
+            book.UserId = 0;
 
             // Bookを更新
             _context.Update(book);

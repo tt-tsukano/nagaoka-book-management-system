@@ -1,8 +1,21 @@
 ﻿@model BookManagement.ViewModels.TitleSearchViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<div>@UserManager.GetUserId(User)</div>
+
+@foreach (var item in Model.Results)
+{
+    @if(item.UserId == int.Parse(UserManager.GetUserId(User)))
+    {
+        <div>@item.Title</div>
+    }
+}
+
 
 <h2>書籍検索</h2>
 
@@ -63,10 +76,21 @@
                         </td>
                         <td>
                             @if (item.BorrowedStatus == true)
-                            {                                
-                                <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
+                            {
+                                @if (item.UserId == int.Parse(UserManager.GetUserId(User)))
+                                {
+                                    <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
+                                        <input type="submit" value="返却する" class="btn btn-success" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-danger">貸出中</span>
+                                }
+
+                                @* <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
                                     <s><input type="submit" value="返却する" class="btn btn-success" /></s>
-                                </a>
+                                </a> *@
                             }
                             else
                             {

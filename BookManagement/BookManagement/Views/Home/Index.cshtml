@@ -63,7 +63,7 @@
                         </td>
                         <td>
                             @if (item.BorrowedStatus == true)
-                            {
+                            {                                
                                 <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
                                     <s><input type="submit" value="返却する" class="btn btn-success" /></s>
                                 </a>

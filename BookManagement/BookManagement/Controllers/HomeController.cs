@@ -53,31 +53,7 @@ public class HomeController : Controller
         titleSearchViewModel.Results = await books.ToListAsync();
 
         return View(titleSearchViewModel);
-    }
-
-    // GET: Home/Login
-    public IActionResult Login()
-    {
-        return View();
-    }
-
-    // POST: Home/Login
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(string Email, string Password)
-    {
-        //EmailとPasswordが一致するUserを取得
-        var user = await _context.Users.FirstOrDefaultAsync(m => m.Email == Email && m.PasswordHash == Password);
-
-        //Userがnullの場合はログイン画面を再表示
-        if (user == null)
-        {
-            return View();
-        }
-
-        //UserをIndexのViewに渡して表示
-        return RedirectToAction("Index");
-    }
+    }   
 
     public IActionResult Privacy()
     {

@@ -29,7 +29,8 @@
                     <th>著者</th>
                     <th>出版年</th>
                     <th>返却予定日</th>
-                    <th>現在の貸出状況</th>
+                    <th>貸出状況</th>
+                    <th>-</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,9 +53,19 @@
                         </td>
                         <td>
                             @if (item.BorrowedStatus == true)
-                            {                                
+                            {
+                                <span class ="text-danger">貸出中</span>
+                            }
+                            else
+                            {
+                                <span class ="text-primary">貸出可</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.BorrowedStatus == true)
+                            {
                                 <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
-                                     <input type="submit" value="返却する" class="btn btn-success" />
+                                    <s><input type="submit" value="返却する" class="btn btn-success" /></s>
                                 </a>
                             }
                             else

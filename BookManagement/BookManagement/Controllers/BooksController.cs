@@ -71,7 +71,7 @@ namespace BookManagement.Controllers
             // BookのBorrowedStatusをtrueに変更
             book.BorrowedStatus = true;
 
-            // BookのBorrowedDateに現在日時を設定
+            // BookのBorrowedDateに日本の現在日時を設定
             //book.BorrowedDate = Date.Now;
 
             // BookのReturnDateにBorrowedDateから2週間後の日時を設定

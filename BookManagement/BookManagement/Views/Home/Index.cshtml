@@ -11,7 +11,7 @@
 <form method="post">
     <div class="form-group">
         <label for="Title">タイトル:</label>
-        <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title" />
+        <input type="text" class="form-control" placeholder="検索キーワードを入力してください" id="Title" name="Title" value="@Model.Title" />
     </div>
     <div class="mt-2">
         <button type="submit" class="btn btn-primary">検索</button>
@@ -44,7 +44,7 @@
                         <td>@item.Id</td>
                         <td class="fst-italic">@item.Title</td>
                         <td>@item.Author</td>
-                        <td>@item.PublishedYear</td>
+                        <td>@item.PublishedYear 年</td>
                         <td>
                             @if (@item.ReturnDate == null)
                             {

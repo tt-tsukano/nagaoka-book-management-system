@@ -17,11 +17,10 @@ namespace BookManagement.Models
 
         [Required(ErrorMessage ="出版年を記入してください。")]
         public int PublishedYear { get; set; }
-
         // 外部キー
         public int UserId { get; set; } = 0;
 
         // 紐づくUserテーブルのデータ
-        public User User { get; set; } = null;
+        public User? User { get; set; }
     }
 }

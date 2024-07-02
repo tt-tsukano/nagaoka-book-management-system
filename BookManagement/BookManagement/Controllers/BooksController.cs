@@ -9,6 +9,7 @@ using BookManagement.Data;
 using BookManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BookManagement.Controllers
 {
@@ -71,10 +72,10 @@ namespace BookManagement.Controllers
             book.BorrowedStatus = true;
 
             // BookのBorrowedDateに現在日時を設定
-            book.BorrowedDate = DateTime.Now;
+            //book.BorrowedDate = Date.Now;
 
             // BookのReturnDateにBorrowedDateから2週間後の日時を設定
-            book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (DateTime?)null;
+            //book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (Date?)null;
 
             // BookのUserIdにログインユーザーのIdを設定
             book.UserId = int.Parse(_userManager.GetUserId(User));

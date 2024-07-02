@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BookManagement.Models
 {
@@ -11,8 +12,9 @@ namespace BookManagement.Models
         [Required(ErrorMessage ="著者名を入力してください。複数いる場合は、1名で良いです。")]
         public string Author { get; set; }
         public bool BorrowedStatus { get; set; } = false;
-        public DateTime? BorrowedDate { get; set; } = DateTime.Now;
-        public DateTime? ReturnDate { get; set; }
+        public Date? BorrowedDate { get; set; }
+        public Date? ReturnDate { get; set; }
+
         [Required(ErrorMessage ="出版年を記入してください。")]
         public int PublishedYear { get; set; }
 

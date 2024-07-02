@@ -107,46 +107,75 @@ namespace BookManagement.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+        // Post時の処理
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            // returnUrlがnullの場合は~/に設定
             returnUrl ??= Url.Content("~/");
+            // ExternalLoginsに外部ログインの情報を設定
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            // 入力値が正しいかチェック
             if (ModelState.IsValid)
             {
+                // Userを作成
                 var user = CreateUser();
 
+                // UserのEmailを設定
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                // UserのPasswordを設定
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                // ログインしたユーザーアカウントのEmailConfirmedをtrueに設定
+                await _userManager.ConfirmEmailAsync(user, await _userManager.GenerateEmailConfirmationTokenAsync(user));
 
+                // Userの作成に成功した場合
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    // ユーザーをログインさせる
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    // returnUrlにリダイレクト
+                    return LocalRedirect(returnUrl);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //// ログにユーザーが新しいアカウントを作成したことを記録
+                    //_logger.LogInformation("User created a new account with password.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    //// ユーザーのEmailを確認するためのリンクを生成
+                    //var userId = await _userManager.GetUserIdAsync(user);
+                    //// Emailの確認を行うためのコードを生成
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //// コードをBase64エンコード
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //// callbackUrlを生成
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                    //    protocol: Request.Scheme);
+
+                    //// Emailを送信
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    //// ユーザーがログインしている場合
+                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    //{
+                    //    // ユーザーの確認が必要な場合は、確認ページにリダイレクト
+                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    //}
+                    //// ユーザーがログインしていない場合
+                    //else
+                    //{
+                    //    // ユーザーをログイン
+                    //    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //    // returnUrlにリダイレクト
+                    //    return LocalRedirect(returnUrl);
+                    //}
                 }
+                // Userの作成に失敗した場合
                 foreach (var error in result.Errors)
                 {
+                    // エラーをModelStateに追加
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }

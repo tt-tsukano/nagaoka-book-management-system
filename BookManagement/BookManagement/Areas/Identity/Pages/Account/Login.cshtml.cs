@@ -66,16 +66,19 @@ namespace BookManagement.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "※メールアドレスが正しくありません")]
-            [EmailAddress]
+            [Required(ErrorMessage = "※メールアドレスが入力されていません")]
+            [EmailAddress(ErrorMessage = "※有効なメールアドレスを入力してください")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "※パスワードが正しくありません。")]
+            [Required(ErrorMessage = "※パスワードが入力されていません")]
             [DataType(DataType.Password)]
+            // 小文字、大文字、数字、特殊文字をそれぞれ1つ以上含む。8文字以上15文字以下
+            // (?=.*)は後方参照で、.*は任意の文字列を表す
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$", ErrorMessage = "※パスワードは8〜15文字で、少なくとも1つの小文字、1つの大文字、1つの数字、1つの特殊文字を含める必要があります")]
             public string Password { get; set; }
 
             /// <summary>

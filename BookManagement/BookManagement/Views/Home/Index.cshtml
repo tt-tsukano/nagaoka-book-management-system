@@ -6,17 +6,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>@UserManager.GetUserId(User)</div>
-
-@foreach (var item in Model.Results)
-{
-    @if(item.UserId == int.Parse(UserManager.GetUserId(User)))
-    {
-        <div>@item.Title</div>
-    }
-}
-
-
 <h2>書籍検索</h2>
 
 <form method="post">
@@ -85,7 +74,7 @@
                                 }
                                 else
                                 {
-                                    <span class="text-danger">貸出中</span>
+                                    <span class="text-danger">×</span>
                                 }
 
                                 @* <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">

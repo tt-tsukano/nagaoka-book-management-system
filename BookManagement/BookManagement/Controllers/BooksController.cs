@@ -72,10 +72,10 @@ namespace BookManagement.Controllers
             book.BorrowedStatus = true;
 
             // BookのBorrowedDateに日本の現在日時を設定
-            //book.BorrowedDate = Date.Now;
+            book.BorrowedDate = DateTime.Now;
 
             // BookのReturnDateにBorrowedDateから2週間後の日時を設定
-            //book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (Date?)null;
+            book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (DateTime?)null;
 
             // BookのUserIdにログインユーザーのIdを設定
             book.UserId = int.Parse(_userManager.GetUserId(User));

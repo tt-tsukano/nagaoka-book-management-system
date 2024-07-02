@@ -19,11 +19,13 @@
     </div>
 </form>
 
+<p></p>
+
 @if (Model.Results != null && Model.Results.Any())
 {
     <div>
-        <h1>書籍一覧</h1>
-        <table class="table text-center">
+        <h1 class="display-4 text-center">書籍一覧</h1>
+        <table class="table text-center table-striped table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -40,7 +42,7 @@
                 {
                     <tr>
                         <td>@item.Id</td>
-                        <td>@item.Title</td>
+                        <td class="fst-italic">@item.Title</td>
                         <td>@item.Author</td>
                         <td>@item.PublishedYear</td>
                         <td>
@@ -56,11 +58,11 @@
                         <td>
                             @if (item.BorrowedStatus == true)
                             {
-                                <span class ="text-danger">貸出中</span>
+                                <span class ="text-danger border border-danger border-2 fs-6">貸出中</span>
                             }
                             else
                             {
-                                <span class ="text-primary">貸出可</span>
+                                <span class ="text-primary border border-primary border-2">貸出可</span>
                             }
                         </td>
                         <td>
@@ -74,7 +76,7 @@
                                 }
                                 else
                                 {
-                                    <span class="text-danger">×</span>
+                                    <span class="text-danger fw-bold">×</span>
                                 }
 
                                 @* <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">

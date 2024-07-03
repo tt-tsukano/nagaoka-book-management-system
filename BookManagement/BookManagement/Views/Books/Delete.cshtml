@@ -4,54 +4,55 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>書籍削除</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Book</h4>
+<h3>本当に削除しますか？</h3>
+<div>   
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BorrowedStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BorrowedStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BorrowedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BorrowedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReturnDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReturnDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PublishedYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublishedYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                書籍
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                <!-- 引数bookのIdを表示 -->
+                @Html.DisplayFor(model => model.Id)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                タイトル
+            </td>
+            <td>
+                <!-- 引数bookのTitleを表示 -->
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                出版年
+            </td>
+            <td>
+                <!-- 引数bookのPublishedYearを表示 -->
+                @Html.DisplayFor(model => model.PublishedYear) 年
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- 返却を行うボタンを配置 -->
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <!--<input type="submit" value="Delete" class="btn btn-danger" />-->
+    <button type="submit" class="btn btn-danger">削除する</button>
+    <a asp-controller="Books" asp-action="Index" class="btn btn-secondary">戻る</a>
+</form>

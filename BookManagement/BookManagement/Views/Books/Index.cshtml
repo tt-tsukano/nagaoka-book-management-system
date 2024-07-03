@@ -1,59 +1,66 @@
 ﻿@model IEnumerable<BookManagement.Models.Book>
-
 @{
     ViewData["Title"] = "書籍管理";
 }
 
-<h1 class="display-4 text-center">書籍管理画面</h1>
+<h1 class="display-5 text-center">書籍管理画面</h1>
 
-<table class="table text-center table-striped table-hover">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                タイトル
-            </th>
-            <th>
-                著者
-            </th>
-            <th>
-                出版年
-            </th>
-            <th>
-                こちらから操作できます
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model != null && Model.Any())
+{
+
+    <table class="table text-center table-striped table-hover">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td class="fst-italic">
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishedYear)年
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">
-                        <input type="submit" value="編集" class="btn btn-primary" />
-                    </a>
-                    <!--<a asp-action="Details" asp-route-id="">
-                        <input type="submit" value="詳細" class="btn btn-success" />
-                    </a>-->
-                    <a asp-action="Delete" asp-route-id="@item.Id">
-                        <input type="submit" value="削除" class="btn btn-danger" />
-                    </a>                   
-                </td>
+                <th>
+                    ID
+                </th>
+                <th>
+                    タイトル
+                </th>
+                <th>
+                    著者
+                </th>
+                <th>
+                    出版年
+                </th>
+                <th>
+                    こちらから操作できます
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td class="fst-italic">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PublishedYear)年
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <input type="submit" value="編集" class="btn btn-primary" />
+                        </a>
+                        <!--<a asp-action="Details" asp-route-id="@item.Id">
+                            <input type="submit" value="詳細" class="btn btn-success" />
+                        </a>-->
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <input type="submit" value="削除" class="btn btn-danger" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-danger">現在登録されている書籍はありません。</p>
+}

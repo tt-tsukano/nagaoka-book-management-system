@@ -11,7 +11,7 @@
             <form id="account" method="post">
                 <h1>ログインを行ってください</h1>
                 <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert">ログインに失敗しました…</div>
                 <p>Email:</p>
                 @* <div class="form-floating mb-3"> *@
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="メールアドレスを入力してください"/>

@@ -133,7 +133,7 @@ namespace BookManagement.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "ログインに失敗しました。EmailもしくはPasswordに誤りがあります");
                     return Page();
                 }
             }

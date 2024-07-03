@@ -9,7 +9,7 @@ namespace BookManagement.Models
         [Required(ErrorMessage ="タイトルを入力してください。")]
         public string Title { get; set; }
         //Authorを追加
-        [Required(ErrorMessage ="著者名を入力してください。複数いる場合は、1名で良いです。")]
+        [Required(ErrorMessage ="著者名を入力してください。")]
         public string Author { get; set; }
         public bool BorrowedStatus { get; set; } = false;
         public DateTime? BorrowedDate { get; set; }

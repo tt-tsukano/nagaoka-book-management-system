@@ -236,7 +236,7 @@ namespace BookManagement.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Index));
             }
             return View(book);
         }

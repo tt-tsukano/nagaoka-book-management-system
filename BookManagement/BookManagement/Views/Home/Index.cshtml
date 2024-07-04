@@ -42,7 +42,11 @@
                 {
                     <tr>
                         <td>@item.Id</td>
-                        <td class="fst-italic">@item.Title</td>
+                        <td class="fst-italic">
+                            <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">
+                                @item.Title
+                            </a>
+                        </td>
                         <td>@item.Author</td>
                         <td>@item.PublishedYear 年</td>
                         <td>

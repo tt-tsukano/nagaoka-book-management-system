@@ -97,7 +97,8 @@ namespace BookManagement.Areas.Identity.Pages.Account
             /// </summary>
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "入力された内容が正しくありません。")]
+            [Required(ErrorMessage = "※パスワードを入力してください")]
+            [Compare("Password", ErrorMessage = "※入力された内容が正しくありません。")]
             public string ConfirmPassword { get; set; }
         }
 

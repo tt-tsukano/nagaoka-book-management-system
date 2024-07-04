@@ -126,12 +126,13 @@ namespace BookManagement.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 // UserのPasswordを設定
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                // ログインしたユーザーアカウントのEmailConfirmedをtrueに設定
-                await _userManager.ConfirmEmailAsync(user, await _userManager.GenerateEmailConfirmationTokenAsync(user));
 
                 // Userの作成に成功した場合
                 if (result.Succeeded)
                 {
+                    // ログインしたユーザーアカウントのEmailConfirmedをtrueに設定
+                    await _userManager.ConfirmEmailAsync(user, await _userManager.GenerateEmailConfirmationTokenAsync(user));
+
                     // ユーザーをログインさせる
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
@@ -177,7 +178,7 @@ namespace BookManagement.Areas.Identity.Pages.Account
                 foreach (var error in result.Errors)
                 {
                     // エラーをModelStateに追加
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, "入力したメールアドレスは既に使用されています");
                 }
             }
 

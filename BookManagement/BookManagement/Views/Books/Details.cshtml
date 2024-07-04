@@ -1,54 +1,62 @@
 ﻿@model BookManagement.Models.Book
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "書籍詳細";
 }
 
-<h1>Details</h1>
+<h1>書籍詳細</h1>
 
 <div>
-    <h4>Book</h4>
+    <h4>書籍</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+        <dt class="col-sm-2">
+            タイトル
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BorrowedStatus)
+        <dt class="col-sm-2">
+            貸出日
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BorrowedStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BorrowedDate)
+        @if (Model.BorrowedStatus == false)
+        {
+            <dd class="col-sm-10">
+                <p>-</p>
+            </dd>
+        }
+        else
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.BorrowedDate)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            返却予定日
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BorrowedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReturnDate)
+        @if (Model.BorrowedStatus == false)
+        {
+            <dd class="col-sm-10">
+                <p>-</p>
+            </dd>
+        }
+        else
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ReturnDate)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            出版年
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReturnDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PublishedYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublishedYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PublishedYear)年
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">戻る</a>
+    </form>
 </div>

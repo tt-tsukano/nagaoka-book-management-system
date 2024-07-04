@@ -4,55 +4,71 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>書籍削除</h1>
 
-<h3>本当に削除しますか？</h3>
-<div>   
-    <hr />
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                書籍
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                ID
-            </td>
-            <td>
-                <!-- 引数bookのIdを表示 -->
-                @Html.DisplayFor(model => model.Id)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                タイトル
-            </td>
-            <td>
-                <!-- 引数bookのTitleを表示 -->
-                @Html.DisplayFor(model => model.Title)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                出版年
-            </td>
-            <td>
-                <!-- 引数bookのPublishedYearを表示 -->
-                @Html.DisplayFor(model => model.PublishedYear) 年
-            </td>
-        </tr>
-    </tbody>
-</table>
+@if (Model.BorrowedStatus == false)
+{
+    <h1>書籍削除</h1>
 
-<!-- 返却を行うボタンを配置 -->
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="Id" />
-    <!--<input type="submit" value="Delete" class="btn btn-danger" />-->
-    <button type="submit" class="btn btn-danger">削除する</button>
-    <a asp-controller="Books" asp-action="Index" class="btn btn-secondary">戻る</a>
-</form>
+    <h3>本当に削除しますか？</h3>
+    <div>
+        <hr />
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    書籍
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    <!-- 引数bookのIdを表示 -->
+                    @Html.DisplayFor(model => model.Id)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    タイトル
+                </td>
+                <td>
+                    <!-- 引数bookのTitleを表示 -->
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    出版年
+                </td>
+                <td>
+                    <!-- 引数bookのPublishedYearを表示 -->
+                    @Html.DisplayFor(model => model.PublishedYear) 年
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 返却を行うボタンを配置 -->
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <!--<input type="submit" value="Delete" class="btn btn-danger" />-->
+        <button type="submit" class="btn btn-danger">削除する</button>
+        <a asp-controller="Books" asp-action="Index" class="btn btn-secondary">戻る</a>
+    </form>
+}
+else
+{
+    <p class="text-danger">
+        ※この書籍は現在貸出中のため、削除することはできません。<br />
+        返却予定日を過ぎましたら削除が可能になります。
+    </p>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <a asp-controller="Books" asp-action="Index" class="btn btn-secondary">戻る</a>
+    </form>
+}

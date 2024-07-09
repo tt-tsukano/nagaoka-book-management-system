@@ -15,5 +15,15 @@ namespace BookManagement.Data
         // Modelをプロパティとして設定
         public DbSet<Book> Books { get; set; }
         public DbSet<User> Users { get; set; }
+
+        // Fluent APIを使ったモデル定義の追加
+        protected override void OnModelCreating(ModelBuilder modelbuilder)
+        {
+            base.OnModelCreating(modelbuilder);
+
+            // 論理削除のためのフィルター
+            modelbuilder.Entity<Book>()
+                .HasQueryFilter(b => !b.IsDeleted);
+        }
     }
 }

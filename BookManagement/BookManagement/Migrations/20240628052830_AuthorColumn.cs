@@ -27,12 +27,12 @@ namespace BookManagement.Migrations
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Author",
-                table: "Books",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+            //migrationBuilder.AddColumn<string>(
+            //    name: "Author",
+            //    table: "Books",
+            //    type: "nvarchar(max)",
+            //    nullable: false,
+            //    defaultValue: "");
         }
 
         /// <inheritdoc />

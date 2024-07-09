@@ -11,6 +11,8 @@ namespace BookManagement.Models
         //Authorを追加
         [Required(ErrorMessage ="著者名を入力してください。")]
         public string Author { get; set; }
+        // 削除フラグ
+        public bool IsDeleted { get; set; } = false;
         public bool BorrowedStatus { get; set; } = false;
         public DateTime? BorrowedDate { get; set; }
         public DateTime? ReturnDate { get; set; }
@@ -18,7 +20,7 @@ namespace BookManagement.Models
         [Required(ErrorMessage ="出版年を記入してください。")]
         public int PublishedYear { get; set; }
         // 外部キー
-        public int UserId { get; set; } = 0;
+        public int? UserId { get; set; }
 
         // 紐づくUserテーブルのデータ
         public User? User { get; set; }

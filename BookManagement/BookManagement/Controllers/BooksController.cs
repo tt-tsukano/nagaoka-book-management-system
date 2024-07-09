@@ -267,7 +267,12 @@ namespace BookManagement.Controllers
             var book = await _context.Books.FindAsync(id);
             if (book != null)
             {
-                _context.Books.Remove(book);
+                // 論理削除のためにIsDeletedをtrueに変更
+                book.IsDeleted = true;
+                // 更新
+                _context.Update(book);
+                // 保存
+                await _context.SaveChangesAsync();
             }
 
             await _context.SaveChangesAsync();

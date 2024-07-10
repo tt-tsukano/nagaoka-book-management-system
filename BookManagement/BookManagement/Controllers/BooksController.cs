@@ -60,34 +60,44 @@ namespace BookManagement.Controllers
         public async Task<IActionResult> Confirm(int id)
         {
             // idに該当するBookを取得
-            var book = await _context.Books.FindAsync(id);
-
-            // Bookがnullの場合はNotFoundを返す
-            if (book == null)
+            using (var transaction = _context.Database.BeginTransactionAsync())
             {
-                return NotFound();
+                try
+                {
+                    // idに該当するBookを取得
+                    var book = await _context.Books
+                        // SQL文を実行
+                        .FromSqlRaw("SELECT * FROM Books WHERE Id = {0}", id)
+                        // 結果を取得
+                        .FirstOrDefaultAsync();
+
+                    // Bookがnullの場合はNotFoundを返す
+                    if (book == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // BookのBorrowedStatusをtrueに変更
+                    book.BorrowedStatus = true;
+                    book.BorrowedDate = DateTime.Now;
+                    book.ReturnDate = book.BorrowedDate.HasValue ? DateTime.Now.AddDays(14) : (DateTime?)null;
+                    book.UserId = int.Parse(_userManager.GetUserId(User));
+
+                    // Bookを更新
+                    _context.Update(book);
+                    await _context.SaveChangesAsync();
+
+                    // コミット
+                    await transaction.Result.CommitAsync();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception e)
+                {
+                    // ロールバック
+                    await transaction.Result.RollbackAsync();
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
-            // BookのBorrowedStatusをtrueに変更
-            book.BorrowedStatus = true;
-
-            // BookのBorrowedDateに日本の現在日時を設定
-            book.BorrowedDate = DateTime.Now;
-
-            // BookのReturnDateにBorrowedDateから2週間後の日時を設定
-            book.ReturnDate = book.BorrowedDate.HasValue ? book.BorrowedDate.Value.AddDays(14) : (DateTime?)null;
-
-            // BookのUserIdにログインユーザーのIdを設定
-            book.UserId = int.Parse(_userManager.GetUserId(User));
-
-            // Bookを更新
-            _context.Update(book);
-
-            // 保存
-            await _context.SaveChangesAsync();
-
-            // 書籍一覧画面にリダイレクト
-            return RedirectToAction("Index","Home");
         }
 
         // GET: Books/Return/5
@@ -130,14 +140,14 @@ namespace BookManagement.Controllers
             // BookのBorrowedStatusをfalseに変更
             book.BorrowedStatus = false;
 
-            // BookのBorrowedDateをnullに設定したい
+            // BookのBorrowedDateをnullに設定
             book.BorrowedDate = null;
 
-            // BookのReturnDateをnullに設定したい
+            // BookのReturnDateをnullに設定
             book.ReturnDate = null;
 
             // BookのUserIdを0に設定
-            book.UserId = 0;
+            book.UserId = null;
 
             // Bookを更新
             _context.Update(book);

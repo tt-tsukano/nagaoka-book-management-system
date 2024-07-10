@@ -72,7 +72,7 @@
                         <td>
                             @if (item.BorrowedStatus == true)
                             {
-                                @if (item.UserId == int.Parse(UserManager.GetUserId(User)))
+                                @if (User.Identity.IsAuthenticated && item.UserId == int.Parse(UserManager.GetUserId(User)))
                                 {
                                     <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
                                         <input type="submit" value="返却する" class="btn btn-success" />

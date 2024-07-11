@@ -17,9 +17,67 @@
         <button type="submit" class="btn btn-primary">検索</button>
         <a asp-action="Index" class="btn btn-secondary">リセット</a>
     </div>
-</form>
+</form><br />
 
-<p></p>
+@if (User.Identity.IsAuthenticated)
+{
+    <h3>あなたが借りている書籍</h3>
+    @if (Model.UserBooks != null && Model.UserBooks.Any())
+    {
+        <table class="table text-center table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>タイトル</th>
+                    <th>著者</th>
+                    <th>出版年</th>
+                    <th>返却予定日</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UserBooks)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td class="fst-italic">
+                            <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">
+                                @item.Title
+                            </a>
+                        </td>
+                        <td>@item.Author</td>
+                        <td>@item.PublishedYear 年</td>
+                        <td>
+                            @if (@item.ReturnDate.HasValue)
+                            {
+                                var daysLeft = (item.ReturnDate.Value - DateTime.Now).Days;
+                                if (daysLeft < 0)
+                                {
+                                    <span class="text-danger">返却期日超過（@item.ReturnDate.Value.ToString("yyyy/MM/dd")）</span>
+                                }
+                                else if (daysLeft <= 3)
+                                {
+                                    <span class="text-warning">@item.ReturnDate.Value.ToString("yyyy/MM/dd")（あと@(daysLeft)日）</span>
+                                }
+                                else
+                                {
+                                    <span>@item.ReturnDate.Value.ToString("yyyy/MM/dd")（あと@(daysLeft)日）</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id" class="btn btn-success">返却する</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <p>現在借りている書籍はありません</p>
+}
 
 @if (Model.Results != null && Model.Results.Any())
 {

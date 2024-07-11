@@ -13,7 +13,6 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BookManagement.Controllers
 {
-    [Authorize]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,12 +25,14 @@ namespace BookManagement.Controllers
         }
 
         // GET: Books
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Books.ToListAsync());
         }
 
         // GET: Books/Confirm/5
+        [Authorize]
         public async Task<IActionResult> Confirm(int? id)
         {
             // idがnullの場合はNotFoundを返す
@@ -57,6 +58,7 @@ namespace BookManagement.Controllers
         // POST: Books/Confirm/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Confirm(int id)
         {
             // idに該当するBookを取得
@@ -101,6 +103,7 @@ namespace BookManagement.Controllers
         }
 
         // GET: Books/Return/5
+        [Authorize]
         public async Task<IActionResult> Return(int? id)
         {
             // idがnullの場合はNotFoundを返す
@@ -126,6 +129,7 @@ namespace BookManagement.Controllers
         // POST: Books/Return/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Return(int id)
         {
             // idに該当するBookを取得
@@ -178,6 +182,7 @@ namespace BookManagement.Controllers
         }
 
         // GET: Books/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -188,6 +193,7 @@ namespace BookManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Title,BorrowedStatus,BorrowedDate,ReturnDate,PublishedYear,UserId,Author")] Book book)
         {
             if (ModelState.IsValid)
@@ -201,6 +207,7 @@ namespace BookManagement.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -221,6 +228,7 @@ namespace BookManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,BorrowedStatus,BorrowedDate,ReturnDate,PublishedYear,UserId,Author")] Book book)
         {
             if (id != book.Id)
@@ -252,6 +260,7 @@ namespace BookManagement.Controllers
         }
 
         // GET: Books/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -272,6 +281,7 @@ namespace BookManagement.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var book = await _context.Books.FindAsync(id);

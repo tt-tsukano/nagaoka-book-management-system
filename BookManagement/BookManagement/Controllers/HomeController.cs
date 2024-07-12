@@ -6,21 +6,22 @@ using Microsoft.EntityFrameworkCore;
 using BookManagement.ViewModels;
 using System.Text;
 using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookManagement.Controllers;
 
-[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
+    private readonly UserManager<User> _userManager;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<User> userManager)
     {
         _logger = logger;
         _context = context;
+        _userManager = userManager;
     }
 
     public async Task<IActionResult> Index()
@@ -28,11 +29,13 @@ public class HomeController : Controller
         var bookslist = await _context.Books.ToListAsync();
 
         //TitleSearchViewModelのResultsに記事一覧を格納
+        //UserBooksにユーザーが借りている書籍の一覧を格納
         var viewModel = new TitleSearchViewModel
         {
-            Results = bookslist
+            Results = bookslist,
+            UserBooks = await GetUserBooksAsync()
         };
-        
+
         //bookslistではなく、viewModelをviewに返す
         return View(viewModel);
     }
@@ -51,9 +54,33 @@ public class HomeController : Controller
         }
 
         titleSearchViewModel.Results = await books.ToListAsync();
+        titleSearchViewModel.UserBooks = await GetUserBooksAsync();
 
         return View(titleSearchViewModel);
-    }   
+    }
+
+    // ログインしているユーザーが借りている書籍のリストを取得するプライベートメソッド
+    private async Task<List<Book>> GetUserBooksAsync()
+    {
+        // ログインしていない場合は空のリストを返す
+        if (!User.Identity.IsAuthenticated)
+        {
+            return new List<Book>();
+        }
+
+        // ログインしているユーザーを取得
+        var currentUser = await _userManager.GetUserAsync(User);
+        // ログインしていない場合は空のリストを返す
+        if (currentUser == null)
+        {
+            return new List<Book>();
+        }
+
+        // ログインしているユーザーが借りている書籍のリストを取得
+        return await _context.Books
+            .Where(b => b.UserId == currentUser.Id && b.BorrowedStatus)
+            .ToListAsync();
+    }
 
     public IActionResult Privacy()
     {

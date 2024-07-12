@@ -122,8 +122,9 @@ namespace BookManagement.Areas.Identity.Pages.Account
                 // Userを作成
                 var user = CreateUser();
 
+                // UserのUserNameを設定
+                await _userStore.SetUserNameAsync(user, Input.Email.Split('@')[0], CancellationToken.None);
                 // UserのEmailを設定
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 // UserのPasswordを設定
                 var result = await _userManager.CreateAsync(user, Input.Password);

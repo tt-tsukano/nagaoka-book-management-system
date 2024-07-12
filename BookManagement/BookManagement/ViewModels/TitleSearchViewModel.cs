@@ -8,5 +8,8 @@ namespace BookManagement.ViewModels
 
         //検索結果記事の一覧を格納するList
         public List<Book> Results { get; set; }
+
+        // ユーザーが借りている書籍の一覧を格納するList
+        public List<Book> UserBooks { get; set; }
     }
 }

@@ -23,8 +23,43 @@ public class HomeController : Controller
         _context = context;
         _userManager = userManager;
     }
-
     public async Task<IActionResult> Index()
+    {
+        var userBooks = await GetUserBooksAsync();
+        var allBooks = await _context.Books.ToListAsync();
+        // ユーザーが借りている書籍を除外
+        var availableBooks = allBooks.Where(b => !userBooks.Any(ub => ub.Id == b.Id)).ToList();
+
+        var viewModel = new TitleSearchViewModel
+        {
+            Results = availableBooks,
+            UserBooks = userBooks
+        };
+
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Index(TitleSearchViewModel titleSearchViewModel)
+    {
+        var userBooks = await GetUserBooksAsync();
+        IQueryable<Book> books = _context.Books;
+
+        if (!string.IsNullOrEmpty(titleSearchViewModel.Title))
+        {
+            books = books.Where(b => b.Title.Contains(titleSearchViewModel.Title));
+        }
+
+        var searchResults = await books.ToListAsync();
+        // ユーザーが借りている書籍を除外
+        var availableBooks = searchResults.Where(b => !userBooks.Any(ub => ub.Id == b.Id)).ToList();
+
+        titleSearchViewModel.Results = availableBooks;
+        titleSearchViewModel.UserBooks = userBooks;
+
+        return View(titleSearchViewModel);
+    }
+    /*public async Task<IActionResult> Index()
     {
         var bookslist = await _context.Books.ToListAsync();
 
@@ -57,7 +92,7 @@ public class HomeController : Controller
         titleSearchViewModel.UserBooks = await GetUserBooksAsync();
 
         return View(titleSearchViewModel);
-    }
+    }*/
 
     // ログインしているユーザーが借りている書籍のリストを取得するプライベートメソッド
     private async Task<List<Book>> GetUserBooksAsync()

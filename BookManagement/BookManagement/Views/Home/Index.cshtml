@@ -17,7 +17,8 @@
         <button type="submit" class="btn btn-primary">検索</button>
         <a asp-action="Index" class="btn btn-secondary">リセット</a>
     </div>
-</form><br />
+</form>
+<br />
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -43,7 +44,7 @@
                         <td class="fst-italic">
                             <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">
                                 @item.Title
-                            </a>
+                            </a>                            
                         </td>
                         <td>@item.Author</td>
                         <td>@item.PublishedYear 年</td>
@@ -73,10 +74,14 @@
             </tbody>
         </table>
     }
+    else
+    {
+        <p class="text-danger">現在借りている書籍はありません</p>
+    }
 }
 else
 {
-    <p>現在借りている書籍はありません</p>
+   <p class="text-danger">右上のログインボタンからログインすることができます。</p>
 }
 
 @if (Model.Results != null && Model.Results.Any())
@@ -114,17 +119,17 @@ else
                             }
                             else
                             {
-                            <span>@item.ReturnDate.Value.ToString("yyyy/MM/dd")</span>
+                                <span>@item.ReturnDate.Value.ToString("yyyy/MM/dd")</span>
                             }
                         </td>
                         <td>
                             @if (item.BorrowedStatus == true)
                             {
-                                <span class ="text-danger border border-danger border-2 fs-6">貸出中</span>
+                                <span class="text-danger border border-danger border-2 fs-6">貸出中</span>
                             }
                             else
                             {
-                                <span class ="text-primary border border-primary border-2">貸出可</span>
+                                <span class="text-primary border border-primary border-2">貸出可</span>
                             }
                         </td>
                         <td>
@@ -142,8 +147,8 @@ else
                                 }
 
                                 @* <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
-                                    <s><input type="submit" value="返却する" class="btn btn-success" /></s>
-                                </a> *@
+                    <s><input type="submit" value="返却する" class="btn btn-success" /></s>
+                    </a> *@
                             }
                             else
                             {

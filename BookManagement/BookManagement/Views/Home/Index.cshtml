@@ -125,7 +125,8 @@ else
                         <td>
                             @if (item.BorrowedStatus == true)
                             {
-                                <span class="text-danger border border-danger border-2 fs-6">貸出中</span>
+                                <span class="text-danger border border-danger border-2 fs-6">貸出中</span><br />
+                                <small class="text-muted">@(item.BorrowerEmail?.Split('@')[0])</small>
                             }
                             else
                             {
@@ -145,10 +146,6 @@ else
                                 {
                                     <span class="text-danger fw-bold">×</span>
                                 }
-
-                                @* <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">
-                    <s><input type="submit" value="返却する" class="btn btn-success" /></s>
-                    </a> *@
                             }
                             else
                             {

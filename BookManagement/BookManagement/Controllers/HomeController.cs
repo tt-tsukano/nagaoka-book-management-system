@@ -26,7 +26,19 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var userBooks = await GetUserBooksAsync();
-        var allBooks = await _context.Books.ToListAsync();
+        var allBooks = await _context.Books
+            .Select(b => new BookSearchResultViewModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                PublishedYear = b.PublishedYear,
+                ReturnDate = b.ReturnDate,
+                BorrowedStatus = b.BorrowedStatus,
+                UserId = b.UserId,
+                BorrowerEmail = b.BorrowedStatus ? _userManager.FindByIdAsync(b.UserId.ToString()).Result.Email : null
+            })
+            .ToListAsync();
         // ユーザーが借りている書籍を除外
         var availableBooks = allBooks.Where(b => !userBooks.Any(ub => ub.Id == b.Id)).ToList();
 
@@ -50,7 +62,20 @@ public class HomeController : Controller
             books = books.Where(b => b.Title.Contains(titleSearchViewModel.Title));
         }
 
-        var searchResults = await books.ToListAsync();
+        var searchResults = await books
+            .Select(b => new BookSearchResultViewModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                PublishedYear = b.PublishedYear,
+                ReturnDate = b.ReturnDate,
+                BorrowedStatus = b.BorrowedStatus,
+                UserId = b.UserId,
+                BorrowerEmail = b.BorrowedStatus ? _userManager.FindByIdAsync(b.UserId.ToString()).Result.Email : null
+            })
+            .ToListAsync();
+
         // ユーザーが借りている書籍を除外
         var availableBooks = searchResults.Where(b => !userBooks.Any(ub => ub.Id == b.Id)).ToList();
 

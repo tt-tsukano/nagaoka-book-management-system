@@ -1,0 +1,40 @@
+﻿@model BookManagement.ViewModels.EmailSendViewModel
+
+@{
+    ViewData["Title"] = "メール作成";
+}
+
+<div class="container mt-4">
+    <h2>メール作成</h2>
+
+    <div class="alert alert-info mb-4">
+        <i class="bi bi-info-circle"></i>
+        このメール送信機能は社内メールアドレス（@@s-giken.co.jp）のみに送信可能です。
+    </div>
+
+    <form asp-action="CreateEmail" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="Subject" class="form-label"></label>
+            <input asp-for="Subject" class="form-control" placeholder="メールの件名を入力してください" />
+            <span asp-validation-for="Subject" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Message" class="form-label"></label>
+            <textarea asp-for="Message" class="form-control" rows="10"
+                      placeholder="メールの本文を入力してください"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">送信</button>
+            <a asp-action="Index" class="btn btn-secondary">戻る</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

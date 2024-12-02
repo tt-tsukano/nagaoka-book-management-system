@@ -20,8 +20,52 @@
 </form>
 <br />
 
+<div class="mb-4">
+    <a asp-controller="Home" asp-action="CreateEmail" class="btn btn-primary">
+        メール作成
+    </a>
+</div>
+
+
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@* 新しく追加する警告メッセージ用のコード *@
+@if (TempData["Warning"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["Warning"]
+        @if (TempData["ErrorDetails"] != null)
+        {
+            <hr>
+            <div class="small">
+                @Html.Raw(TempData["ErrorDetails"])
+            </div>
+        }
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 @if (User.Identity.IsAuthenticated)
 {
+    <div class="mb-4">
+        <a asp-controller="Home" asp-action="CreateEmail" class="btn btn-primary">
+            メール作成
+        </a>
+    </div>
     <h3>あなたが借りている書籍</h3>
     @if (Model.UserBooks != null && Model.UserBooks.Any())
     {

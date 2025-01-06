@@ -20,14 +20,6 @@
 </form>
 <br />
 
-<div class="mb-4">
-    <a asp-controller="Home" asp-action="CreateEmail" class="btn btn-primary">
-        メール作成
-    </a>
-</div>
-
-
-
 @if (TempData["Message"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -61,11 +53,6 @@
 }
 @if (User.Identity.IsAuthenticated)
 {
-    <div class="mb-4">
-        <a asp-controller="Home" asp-action="CreateEmail" class="btn btn-primary">
-            メール作成
-        </a>
-    </div>
     <h3>あなたが借りている書籍</h3>
     @if (Model.UserBooks != null && Model.UserBooks.Any())
     {

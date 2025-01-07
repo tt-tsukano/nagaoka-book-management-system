@@ -88,7 +88,7 @@ namespace BookManagement.Areas.Identity.Pages.Account
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
-            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$", ErrorMessage = "※パスワードは8〜15文字で、少なくとも1つの小文字、1つの大文字、1つの数字、1つの特殊文字を含める必要があります")]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "※パスワードは8〜15文字で、大文字、小文字、数字をそれぞれ1文字以上含む必要があります")]
             public string Password { get; set; }
 
             /// <summary>

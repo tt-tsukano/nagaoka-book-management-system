@@ -1,0 +1,5 @@
+runtime: aspnetcore
+env: flex
+
+env_variables:
+  ConnectionStrings__DefaultConnection: <Ú‘±•¶Žš—ñ>
